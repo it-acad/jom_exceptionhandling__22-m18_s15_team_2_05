@@ -70,20 +70,20 @@ public class ToDoController {
     @PostMapping("/{todo_id}/update/users/{owner_id}")
     public String update(@PathVariable("todo_id") long todoId, @PathVariable("owner_id") long ownerId,
                          @Validated @ModelAttribute("todo") ToDo todo, BindingResult result) {
-        if (result.hasErrors()) {
-            todo.setOwner(userService.readById(ownerId));
-            return "update-todo";
-        }
-        ToDo oldTodo = todoService.readById(todoId);
-        todo.setOwner(oldTodo.getOwner());
-        todo.setCollaborators(oldTodo.getCollaborators());
-        todoService.update(todo);
+//        if (result.hasErrors()) {
+//            todo.setOwner(userService.readById(ownerId));
+//            return "update-todo";
+//        }
+//        ToDo oldTodo = todoService.readById(todoId);
+//        todo.setOwner(oldTodo.getOwner());
+//        todo.setCollaborators(oldTodo.getCollaborators());
+        todoService.update(null); // todo
         return "redirect:/todos/all/users/" + ownerId;
     }
 
     @GetMapping("/{todo_id}/delete/users/{owner_id}")
     public String delete(@PathVariable("todo_id") long todoId, @PathVariable("owner_id") long ownerId) {
-        todoService.delete(todoId);
+        todoService.delete(-535); // todoId
         return "redirect:/todos/all/users/" + ownerId;
     }
 
