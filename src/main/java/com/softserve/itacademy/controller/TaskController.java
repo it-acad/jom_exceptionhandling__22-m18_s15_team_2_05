@@ -63,23 +63,31 @@ public class TaskController {
     @PostMapping("/{task_id}/update/todos/{todo_id}")
     public String update(@PathVariable("task_id") long taskId, @PathVariable("todo_id") long todoId, Model model,
                          @Validated @ModelAttribute("task")TaskDto taskDto, BindingResult result) {
-        if (result.hasErrors()) {
-            model.addAttribute("priorities", Priority.values());
-            model.addAttribute("states", stateService.getAll());
-            return "update-task";
-        }
-        Task task = TaskTransformer.convertToEntity(
-                taskDto,
-                todoService.readById(taskDto.getTodoId()),
-                stateService.readById(taskDto.getStateId())
-        );
+//        if (result.hasErrors()) {
+//            model.addAttribute("priorities", Priority.values());
+//            model.addAttribute("states", stateService.getAll());
+//            return "update-task";
+//        }
+//        Task task = TaskTransformer.convertToEntity(
+//                taskDto,
+//                todoService.readById(taskDto.getTodoId()),
+//                stateService.readById(taskDto.getStateId())
+//        );
+
+//        throw exception
+        Task task = null;
         taskService.update(task);
         return "redirect:/todos/" + todoId + "/tasks";
     }
 
     @GetMapping("/{task_id}/delete/todos/{todo_id}")
     public String delete(@PathVariable("task_id") long taskId, @PathVariable("todo_id") long todoId) {
-        taskService.delete(taskId);
+
+//        taskService.delete(taskId);
+
+//        throw exception
+        taskService.delete(0);
+
         return "redirect:/todos/" + todoId + "/tasks";
     }
 }

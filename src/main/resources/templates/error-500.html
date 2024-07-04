@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <title>Error page</title>
+</head>
+<body>
+<div th:replace="header"></div>
+<h2>Error 500: The server encountered an unexpected condition or configuration problem</h2>
+<h2 th:text="${message}"></h2>
+</body>
+</html>

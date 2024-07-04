@@ -1,5 +1,7 @@
 package com.softserve.itacademy.service.impl;
 
+import com.softserve.itacademy.exception.EntityNotFoundException;
+import com.softserve.itacademy.exception.NullEntityReferenceException;
 import com.softserve.itacademy.model.Task;
 import com.softserve.itacademy.repository.TaskRepository;
 import com.softserve.itacademy.service.TaskService;
@@ -19,25 +21,31 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public Task create(Task user) {
-            return taskRepository.save(user);
+        return taskRepository.save(user);
     }
 
     @Override
     public Task readById(long id) {
         Optional<Task> optional = taskRepository.findById(id);
-            return optional.get();
+        return optional.get();
     }
 
     @Override
     public Task update(Task task) {
-            Task oldTask = readById(task.getId());
-                return taskRepository.save(task);
+        if (task == null) {
+            throw new EntityNotFoundException("Task cannot be null");
+        }
+        Task oldTask = readById(task.getId());
+        return taskRepository.save(task);
     }
 
     @Override
     public void delete(long id) {
+        if (id == 0) {
+            throw new NullEntityReferenceException("Please try again");
+        }
         Task task = readById(id);
-            taskRepository.delete(task);
+        taskRepository.delete(task);
     }
 
     @Override
