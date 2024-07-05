@@ -1,5 +1,7 @@
 package com.softserve.itacademy.service.impl;
 
+import com.softserve.itacademy.exception.EntityNotFoundException;
+import com.softserve.itacademy.exception.NullEntityReferenceException;
 import com.softserve.itacademy.model.User;
 import com.softserve.itacademy.repository.UserRepository;
 import com.softserve.itacademy.service.UserService;
@@ -20,19 +22,29 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User create(User user) {
-            return userRepository.save(user);
+        if (user == null) {
+            throw new NullEntityReferenceException("User cannot be null");
+        }
+        return userRepository.save(user);
     }
 
     @Override
     public User readById(long id) {
         Optional<User> optional = userRepository.findById(id);
+        if (optional.isPresent()) {
             return optional.get();
+        } else {
+            throw new EntityNotFoundException("User with id " + id + " not found");
+        }
     }
 
     @Override
     public User update(User user) {
-            User oldUser = readById(user.getId());
-                return userRepository.save(user);
+        if (user == null) {
+            throw new NullEntityReferenceException("User cannot be null");
+        }
+        User oldUser = readById(user.getId());
+        return userRepository.save(user);
     }
 
     @Override
