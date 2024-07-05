@@ -7,7 +7,14 @@
 </head>
 <body>
 <div th:replace="header"></div>
-<h2>Error 500: The server encountered an unexpected condition or configuration problem</h2>
-<h2 th:text="${message}"></h2>
+<div class="container">
+    <div class="jumbotron">
+        <h1 class="display-4">Error 500</h1>
+        <p class="lead">An internal server error occurred.</p>
+        <hr class="my-4">
+        <p th:text="${message}"></p>
+        <a class="btn btn-primary btn-lg" href="/" role="button">Go to Home</a>
+    </div>
+</div>
 </body>
 </html>
