@@ -47,16 +47,18 @@ public class UserController {
 
     @GetMapping("/{id}/update")
     public String update(@PathVariable long id, Model model) {
-        User user = userService.readById(id);
-        model.addAttribute("user", user);
-        model.addAttribute("roles", roleService.getAll());
+        User user = null;
+        userService.update(user);
+//        model.addAttribute("user", user);
+//        model.addAttribute("roles", roleService.getAll());
         return "update-user";
     }
 
 
     @GetMapping("/{id}/delete")
     public String delete(@PathVariable("id") long id) {
-        userService.delete(id);
+//        userService.delete(id);
+        userService.delete(0);
         return "redirect:/users/all";
     }
 
